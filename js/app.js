@@ -1,6 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
+ const card = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
+ "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb",
+ "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"];
 
 
 /*
@@ -26,8 +29,17 @@ function shuffle(array) {
 }
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
+/** set up the event listener for a card.*/
+const cards = document.querySelectorAll('.card');
+const deck = document.querySelector('.deck');
+/* for (card of cards) {
+  card.addEventListener('click', () => {
+    console.log("Hello, I'm a card!");
+  });
+} */
+
+ /*
+ If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
@@ -36,3 +48,11 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ deck.addEventListener('click', event => {
+   const clickEvent = event.target;
+   if (clickEvent.classList.contains('card')) {
+     clickEvent.classList.toggle('open');
+     clickEvent.classList.toggle('show');
+   }
+ });
