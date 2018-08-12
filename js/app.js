@@ -5,6 +5,8 @@
  "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb",
  "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"];
 
+//Global Variables
+let flippedCards = [];
 
 /*
  * Display the cards on the page
@@ -52,7 +54,51 @@ const deck = document.querySelector('.deck');
  deck.addEventListener('click', event => {
    const clickEvent = event.target;
    if (clickEvent.classList.contains('card')) {
-     clickEvent.classList.toggle('open');
-     clickEvent.classList.toggle('show');
+     flipCard(clickEvent);
+     addFlippedCards(clickEvent);
+     if (doubleCheckClicks(clickEvent)) {
+       console.log("Card has been flipped");
+     }
+
+     if(flippedCards.length === 2) {
+       findMatch(clickEvent);
+     }
    }
  });
+
+ //isClickValid function
+ function doubleCheckClicks(clickEvent) {
+   return (
+     clickEvent.classList.contains('card') &&
+     clickEvent.classList.contains('match') &&
+     flippedCards.length < 2 && !flippedCards.includes(clickEvent)
+   );
+ }
+
+ //Toggle Card Function
+ function flipCard(card) {
+   card.classList.toggle('open');
+   card.classList.toggle('show');
+ }
+
+ //Add to toggleCard array
+ function addFlippedCards(clickTarget) {
+   flippedCards.push(clickTarget);
+   console.log(flippedCards);
+ }
+
+ //Check for a match
+ function findMatch() {
+  if (flippedCards[0].firstElementChild.className ===
+    flippedCards[1].firstElementChild.className) {
+    flippedCards[0].classList.toggle('match');
+    flippedCards[1].classList.toggle('match');
+    flippedCards = [];
+  } else {
+    setTimeout(() => {
+      flipCard(flippedCards[0]);
+      flipCard(flippedCards[1]);
+      flippedCards = [];
+    }, 1000);
+  }
+ }
