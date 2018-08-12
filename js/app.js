@@ -1,9 +1,21 @@
 /*
  * Create a list that holds all of your cards
  */
- const card = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
+ /* const card = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
  "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb",
- "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"];
+ "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"]; */
+
+const deck = document.querySelector('.deck');
+
+//ShuffleDeck function
+function deckShuffle() {
+  const cardsNeedShuffled = Array.from(document.querySelectorAll('.deck li'));
+  const cardsBeenShuffled = shuffle(cardsNeedShuffled);
+  for (card of cardsBeenShuffled) {
+    deck.appendChild(card);
+  }
+}
+deckShuffle();
 
 //Global Variables
 let flippedCards = [];
@@ -33,7 +45,6 @@ function shuffle(array) {
 
 /** set up the event listener for a card.*/
 const cards = document.querySelectorAll('.card');
-const deck = document.querySelector('.deck');
 /* for (card of cards) {
   card.addEventListener('click', () => {
     console.log("Hello, I'm a card!");
