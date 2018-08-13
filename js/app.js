@@ -19,6 +19,7 @@ deckShuffle();
 
 //Global Variables
 let flippedCards = [];
+let moves = 0;
 
 /*
  * Display the cards on the page
@@ -73,6 +74,8 @@ const cards = document.querySelectorAll('.card');
 
      if(flippedCards.length === 2) {
        findMatch(clickEvent);
+       increaseMove();
+       checkStars();
      }
    }
  });
@@ -113,3 +116,30 @@ const cards = document.querySelectorAll('.card');
     }, 1000);
   }
  }
+
+ //Add move function
+ function increaseMove() {
+   moves++;
+   const moveText = document.querySelector('.moves');
+   moveText.innerHTML = moves;
+ }
+
+ //Function checkScore
+ function checkStars() {
+   if (moves === 16 || moves === 24) {
+     removeStar();
+   }
+ }
+
+ //Remove Star
+ function removeStar() {
+   const starRatings = document.querySelectorAll('.stars li');
+   for (star of starRatings) {
+     if (star.style.display !== 'none') {
+       star.style.display = 'none';
+       break;
+     }
+   }
+ }
+removeStar();
+removeStar();
