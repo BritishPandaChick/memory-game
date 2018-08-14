@@ -7,6 +7,13 @@
 
 const deck = document.querySelector('.deck');
 
+//Global Variables
+let flippedCards = [];
+let moves = 0;
+let timerOff = true;
+let time = 0;
+let timerId;
+
 //ShuffleDeck function
 function deckShuffle() {
   const cardsNeedShuffled = Array.from(document.querySelectorAll('.deck li'));
@@ -16,10 +23,6 @@ function deckShuffle() {
   }
 }
 deckShuffle();
-
-//Global Variables
-let flippedCards = [];
-let moves = 0;
 
 /*
  * Display the cards on the page
@@ -69,7 +72,10 @@ const cards = document.querySelectorAll('.card');
      flipCard(clickEvent);
      addFlippedCards(clickEvent);
      if (doubleCheckClicks(clickEvent)) {
-       console.log("Card has been flipped");
+       if (timerOff) {
+         beginTimer();
+         timerOff = false;
+       }
      }
 
      if(flippedCards.length === 2) {
@@ -87,6 +93,32 @@ const cards = document.querySelectorAll('.card');
      clickEvent.classList.contains('match') &&
      flippedCards.length < 2 && !flippedCards.includes(clickEvent)
    );
+ }
+
+ //Start clock function
+ function beginTimer() {
+   timerId = setInterval(() => {
+     time++;
+     showTimer();
+   }, 1000);
+ }
+
+ //Display time fucntion
+ function showTimer() {
+   const timer = document.querySelector('.timer');
+   const minutes = Math.floor(time / 60);
+   const seconds = time % 60;
+
+   if (seconds < 10) {
+     timer.innerHTML = `${minutes}:0${seconds}`;
+   } else {
+     timer.innerHTML = `${minutes}:${seconds}`;
+   }
+ }
+
+ //function stopClock
+ function endTimer() {
+   clearInterval(timerId);
  }
 
  //Toggle Card Function
