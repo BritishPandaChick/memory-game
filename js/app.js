@@ -48,7 +48,7 @@ function shuffle(array) {
 
 
 /** set up the event listener for a card.*/
-const cards = document.querySelectorAll('.card');
+//const cards = document.querySelectorAll('.card');
 /* for (card of cards) {
   card.addEventListener('click', () => {
     console.log("Hello, I'm a card!");
@@ -68,30 +68,28 @@ const cards = document.querySelectorAll('.card');
 
  deck.addEventListener('click', event => {
    const clickEvent = event.target;
-   if (clickEvent.classList.contains('card')) {
-     flipCard(clickEvent);
-     addFlippedCards(clickEvent);
-     if (doubleCheckClicks(clickEvent)) {
-       if (timerOff) {
-         beginTimer();
-         timerOff = false;
-       }
-     }
-
-     if(flippedCards.length === 2) {
-       findMatch(clickEvent);
-       increaseMove();
-       checkStars();
-     }
-   }
- });
+    if (doubleCheckClicks(clickEvent)) {
+      if (timerOff) {
+        beginTimer();
+        timerOff = false;
+      }
+      flipCard(clickEvent);
+      addFlippedCards(clickEvent);
+      if (flippedCards.length === 2) {
+        findMatch();
+        increaseMove();
+        checkStars();
+      }
+    }
+});
 
  //isClickValid function
  function doubleCheckClicks(clickEvent) {
    return (
      clickEvent.classList.contains('card') &&
-     clickEvent.classList.contains('match') &&
-     flippedCards.length < 2 && !flippedCards.includes(clickEvent)
+     !clickEvent.classList.contains('match') &&
+     flippedCards.length < 2 &&
+     !flippedCards.includes(clickEvent)
    );
  }
 
@@ -116,11 +114,6 @@ const cards = document.querySelectorAll('.card');
    }
  }
 
- //function stopClock
- function endTimer() {
-   clearInterval(timerId);
- }
-
  //Toggle Card Function
  function flipCard(card) {
    card.classList.toggle('open');
@@ -130,7 +123,6 @@ const cards = document.querySelectorAll('.card');
  //Add to toggleCard array
  function addFlippedCards(clickTarget) {
    flippedCards.push(clickTarget);
-   console.log(flippedCards);
  }
 
  //Check for a match
@@ -147,6 +139,11 @@ const cards = document.querySelectorAll('.card');
       flippedCards = [];
     }, 1000);
   }
+ }
+
+ //function stopClock
+ function endTimer() {
+   clearInterval(timerId);
  }
 
  //Add move function
