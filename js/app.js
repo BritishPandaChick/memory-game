@@ -172,3 +172,54 @@ function shuffle(array) {
  }
 removeStar();
 removeStar();
+
+/* ToggleModal function */
+function displayModal() {
+  const modal = document.querySelector('.modal-container');
+  modal.classList.toggle('hide');
+}
+
+/*Modal Tests*/
+time = 121;
+showTimer();
+moves = 16;
+checkStars();
+
+createModalData();
+displayModal();
+
+/* writeModalStats function */
+function createModalData() {
+  const timeData = document.querySelector('.modal-time');
+  const clockTime = document.querySelector('.timer').innerHTML;
+  const movesData = document.querySelector('.modal-moves');
+  const starsData = document.querySelector('.modal-stars');
+  const stars = findStars();
+
+  timeData.innerHTML = `Time = ${clockTime}`;
+  movesData.innerHTML = `Moves = ${moves}`;
+  starsData.innerHTML = `Stars = ${stars}`;
+}
+
+/* Getstars function */
+function findStars() {
+  stars = document.querySelectorAll('.stars li');
+  starCount = 0;
+  for (star of stars) {
+    if (star.style.display !== 'none') {
+      starCount++;
+    }
+  }
+  console.log(starCount);
+  return starCount;
+}
+
+/* Modal Buttons */
+document.querySelector('.modal-cancel').addEventListener('click', () => {
+  displayModal();
+});
+
+document.querySelector('.modal-replay').addEventListener('click', () => {
+  console.log('replay');
+  //Call reset game here 
+});
