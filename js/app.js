@@ -170,8 +170,6 @@ function shuffle(array) {
      }
    }
  }
-removeStar();
-removeStar();
 
 /* ToggleModal function */
 function displayModal() {
@@ -204,22 +202,23 @@ function createModalData() {
 /* Getstars function */
 function findStars() {
   stars = document.querySelectorAll('.stars li');
-  starCount = 0;
+  starNumber = 0;
   for (star of stars) {
     if (star.style.display !== 'none') {
-      starCount++;
+      starNumber++;
     }
   }
-  console.log(starCount);
-  return starCount;
+  console.log(starNumber);
+  return starNumber;
 }
 
-/* Modal Buttons */
+/* Cancel Button */
 document.querySelector('.modal-cancel').addEventListener('click', () => {
   displayModal();
 });
 
+/* Replay Button */
 document.querySelector('.modal-replay').addEventListener('click', () => {
   console.log('replay');
-  //Call reset game here 
+  //Call reset game here
 });
