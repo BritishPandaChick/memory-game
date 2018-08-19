@@ -15,7 +15,6 @@ let time = 0;
 let timerId;
 let matchedCards = 0;
 
-
 //ShuffleDeck function
 function deckShuffle() {
   const cardsNeedShuffled = Array.from(document.querySelectorAll('.deck li'));
@@ -137,6 +136,7 @@ function shuffle(array) {
     flippedCards[1].classList.toggle('match');
     flippedCards = [];
     matchedCards++;
+
     if (matchedCards === totalMatches) {
       endGame();
     }
@@ -214,7 +214,6 @@ function findStars() {
       starNumber++;
     }
   }
-  console.log(starNumber);
   return starNumber;
 }
 
@@ -225,7 +224,6 @@ document.querySelector('.modal-cancel').addEventListener('click', () => {
 
 /* Replay Button */
 document.querySelector('.modal-replay').addEventListener('click', () => {
-  //Call reset game here
   playAgain();
 });
 
@@ -261,14 +259,16 @@ function restartStars() {
   }
 }
 
-/* Reset Button */
-document.querySelector('.restart').addEventListener('click', gameReset);
-
 /* ReplayGame function */
 function playAgain() {
   gameReset();
   displayModal();
 }
+
+/* Reset Button */
+document.querySelector('.restart').addEventListener('click', () => {
+  gameReset();
+});
 
 /*Resetcards function */
 function resetAllCards () {
