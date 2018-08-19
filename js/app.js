@@ -13,6 +13,8 @@ let moves = 0;
 let timerOff = true;
 let time = 0;
 let timerId;
+let matchedCards = 0;
+
 
 //ShuffleDeck function
 function deckShuffle() {
@@ -127,11 +129,17 @@ function shuffle(array) {
 
  //Check for a match
  function findMatch() {
+  const totalMatches = 8;
+
   if (flippedCards[0].firstElementChild.className ===
     flippedCards[1].firstElementChild.className) {
     flippedCards[0].classList.toggle('match');
     flippedCards[1].classList.toggle('match');
     flippedCards = [];
+    matchedCards++;
+    if (matchedCards === totalMatches) {
+      endGame();
+    }
   } else {
     setTimeout(() => {
       flipCard(flippedCards[0]);
@@ -139,6 +147,13 @@ function shuffle(array) {
       flippedCards = [];
     }, 1000);
   }
+ }
+
+/* Game over function */
+ function endGame() {
+   endTimer();
+   createModalData();
+   displayModal();
  }
 
  //function stopClock
@@ -177,15 +192,6 @@ function displayModal() {
   modal.classList.toggle('hide');
 }
 
-/*Modal Tests*/
-time = 121;
-showTimer();
-moves = 16;
-checkStars();
-
-createModalData();
-displayModal();
-
 /* writeModalStats function */
 function createModalData() {
   const timeData = document.querySelector('.modal-time');
@@ -219,6 +225,55 @@ document.querySelector('.modal-cancel').addEventListener('click', () => {
 
 /* Replay Button */
 document.querySelector('.modal-replay').addEventListener('click', () => {
-  console.log('replay');
   //Call reset game here
+  playAgain();
 });
+
+/* Resetgame function */
+function gameReset() {
+  resetTimer();
+  restartMoves();
+  restartStars();
+  deckShuffle();
+  resetAllCards();
+}
+
+/*ResetClockandTime Function */
+function resetTimer() {
+  endTimer();
+  timerOff = true;
+  time = 0;
+  showTimer();
+}
+
+/* Reset Moves Function */
+function restartMoves() {
+  moves = 0;
+  document.querySelector('.moves').innerHTML = moves;
+}
+
+/* Reset Stars Function */
+function restartStars() {
+  stars = 0;
+  const listOfStars = document.querySelectorAll('.stars li');
+  for (stars of listOfStars) {
+    star.style.display = 'inline';
+  }
+}
+
+/* Reset Button */
+document.querySelector('.restart').addEventListener('click', gameReset);
+
+/* ReplayGame function */
+function playAgain() {
+  gameReset();
+  displayModal();
+}
+
+/*Resetcards function */
+function resetAllCards () {
+  const cards = document.querySelectorAll('.deck li');
+  for (let card of cards) {
+    card.className = 'card';
+  }
+}
