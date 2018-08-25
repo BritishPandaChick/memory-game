@@ -1,4 +1,5 @@
 # Memory Game Project
+Built with HTML, CSS and JavaScript. Also uses Google Fonts and Bootstrap.
 
 ## Table of Contents
 
@@ -7,14 +8,13 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+This is a simple matching game. Just start flipping cards and find the match. Find all the matches as fast as you can to get the highest score. Once all the cards are matched, check out your score and how quickly you played the game.
 
 ## Contributing
 
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Acknowledgements
+* Matthew Cranford Udacity Memory Game Walkthrough

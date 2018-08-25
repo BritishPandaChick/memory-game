@@ -152,13 +152,44 @@ function shuffle(array) {
 /* Game over function */
  function endGame() {
    endTimer();
-   createModalData();
    displayModal();
+   createModalData();
  }
 
  //function stopClock
  function endTimer() {
    clearInterval(timerId);
+ }
+
+ /* ToggleModal function */
+ function displayModal() {
+   const modal = document.querySelector('.modal-container');
+   modal.classList.toggle('hide');
+ }
+
+ /* writeModalStats function */
+ function createModalData() {
+   const timeData = document.querySelector('.modal-time');
+   const clockTime = document.querySelector('.timer').innerHTML;
+   const movesData = document.querySelector('.modal-moves');
+   const starsData = document.querySelector('.modal-stars');
+   const stars = findStars();
+
+   timeData.innerHTML = `Time = ${clockTime}`;
+   movesData.innerHTML = `Moves = ${moves}`;
+   starsData.innerHTML = `Stars = ${stars}`;
+ }
+
+ /* Getstars function */
+ function findStars() {
+   stars = document.querySelectorAll('.stars li');
+   starNumber = 0;
+   for (star of stars) {
+     if (star.style.display !== 'none') {
+       starNumber++;
+     }
+   }
+   return starNumber;
  }
 
  //Add move function
@@ -186,54 +217,29 @@ function shuffle(array) {
    }
  }
 
-/* ToggleModal function */
-function displayModal() {
-  const modal = document.querySelector('.modal-container');
-  modal.classList.toggle('hide');
-}
+ /* Cancel Button */
+ document.querySelector('.modal-cancel').addEventListener('click', () => {
+   displayModal();
+ });
 
-/* writeModalStats function */
-function createModalData() {
-  const timeData = document.querySelector('.modal-time');
-  const clockTime = document.querySelector('.timer').innerHTML;
-  const movesData = document.querySelector('.modal-moves');
-  const starsData = document.querySelector('.modal-stars');
-  const stars = findStars();
+ /* Replay Button */
+ document.querySelector('.modal-replay').addEventListener('click', () => {
+   playAgain();
+ });
 
-  timeData.innerHTML = `Time = ${clockTime}`;
-  movesData.innerHTML = `Moves = ${moves}`;
-  starsData.innerHTML = `Stars = ${stars}`;
-}
-
-/* Getstars function */
-function findStars() {
-  stars = document.querySelectorAll('.stars li');
-  starNumber = 0;
-  for (star of stars) {
-    if (star.style.display !== 'none') {
-      starNumber++;
-    }
-  }
-  return starNumber;
-}
-
-/* Cancel Button */
-document.querySelector('.modal-cancel').addEventListener('click', () => {
-  displayModal();
-});
-
-/* Replay Button */
-document.querySelector('.modal-replay').addEventListener('click', () => {
-  playAgain();
-});
+ /* ReplayGame function */
+ function playAgain() {
+   gameReset();
+   displayModal();
+ }
 
 /* Resetgame function */
 function gameReset() {
   resetTimer();
   restartMoves();
   restartStars();
-  deckShuffle();
   resetAllCards();
+  deckShuffle();
 }
 
 /*ResetClockandTime Function */
@@ -257,12 +263,6 @@ function restartStars() {
   for (stars of listOfStars) {
     star.style.display = 'inline';
   }
-}
-
-/* ReplayGame function */
-function playAgain() {
-  gameReset();
-  displayModal();
 }
 
 /* Reset Button */
